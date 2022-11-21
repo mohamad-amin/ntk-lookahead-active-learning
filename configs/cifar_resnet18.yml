@@ -1,0 +1,45 @@
+data:
+  al_params: {add_num: 1000, init_num: 1000, num_subset: 4000}
+  batch_size: 128
+  test_batch_size: 1000
+  name: cifar10
+  num_workers: 0
+  root: data
+  transform: {augment: true, crop_size: 32, image_size: 32}
+
+eval:
+  standard: acc
+
+model:
+  acquisition: ntk
+  backbone: resnet18
+  checkpoint_path: ''
+  model_arch: {depth: 18, dropout_rate: 0.0, num_classes: 10, num_layers: 4, widen_factor: 10}
+  ntk:
+    block: true,
+    dpp: false,
+    hybrid_selection: false,
+    sequential_selection: false,
+    kernel_comp_coef: 1.01,
+    kernel_implementation: 3,
+    loss_fn: l2,
+    lr: 0.1,
+    momentum: 0.9,
+    trace_axes: [-1,],
+    t: None,
+    use_true_uncertainties: false,
+    psuedo_label_strategy: ntk,
+    ntk_objective: pseudo_contrastive
+  pretrained: false
+
+train:
+  checkpointing_strategy: last
+  adjust_batchnorm_stats: false
+  criterion: {name: l2}
+  cycles: 10
+  lr_schedule: {max_lr: 1.25, name: onecycle}
+  manual_train_control: false
+  num_epochs: 200
+  ws_shrink_coef: 0.0
+  optimizer: {lr: 0.3, momentum: 0.9, name: sgd, nesterov: false, weight_decay: 0.0001}
+  trials: 1

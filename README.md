@@ -1,2 +1,3 @@
-# ntk-active-learning
-Making Look-Ahead Active Learning feasible with Neural Tangent Kernels
+# NTK Active Learning
+
+Anonymous Code for Active Learning using NTKs
